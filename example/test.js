@@ -2,24 +2,24 @@
 
 var Timer = require('../');
 var timer = new Timer({
-  MAX_LAP_LENGTH: 10
+  MAX_LAP_LENGTH: 100
 });
 
-var result = timer
-  .init()
-  .start()
-  .lap()
-  .lap()
-  .lap()
-  .lap()
-  .lap()
-  .lap()
-  .lap()
-  .lap()
-  .lap()
-  .lap()
-  .lap()
-  .lap()
-  .result();
+var count = 0;
+var times = 100;
 
-console.log(result);
+timer.init().start();
+
+var iter = function() {
+  setTimeout(function() {
+    clearTimeout(iter);
+    timer.lap();
+    if (count === times) {
+      console.log(timer.result());
+    } else {
+      iter();
+    }
+  }, Math.random() * 10 * ++count);
+};
+
+iter();
