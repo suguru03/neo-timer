@@ -20,6 +20,7 @@
   function Timer() {
     this._startTime = null;
     this._diff = null;
+    this._before = 0;
     this._stats = {
       count: 0,
       sum: 0,
@@ -38,13 +39,16 @@
 
   Timer.prototype.lap = function() {
     var diff = this.diff();
+    var before = this._before;
     var lapTime = this._stats.lapTime;
-    var lastIndex = lapTime.length - 1;
-    if (lastIndex >= 0) {
-      diff -= lapTime[lastIndex];
-    }
+    this._before = diff;
+    diff -= before;
     this._stats.count++;
     this._stats.sum += diff;
+
+    if (this.MAX_LAP_LENGTH === 0) {
+      return this;
+    }
 
     lapTime.push(diff);
     if (lapTime.length > this.MAX_LAP_LENGTH) {
@@ -81,7 +85,7 @@
   NodeTimer.prototype.diff = function() {
     var diff = process.hrtime(this._startTime);
     // ns -> s
-    this._diff = (diff[0] * 1e9 + diff[1]) / 10e9;
+    this._diff = (diff[0] * 1e9 + diff[1]) / 1e9;
     return this._diff;
   };
 
@@ -103,7 +107,7 @@
 
   PerformanceTimer.prototype.diff = function() {
     // ms -> s
-    this._diff = (performance.now() - this._startTime) / 10e3;
+    this._diff = (performance.now() - this._startTime) / 1e3;
     return this._diff;
   };
 
@@ -124,7 +128,7 @@
 
   DateTimer.prototype.diff = function() {
     // ms -> s
-    this._diff = (Date.now() - this._startTime) / 10e3;
+    this._diff = (Date.now() - this._startTime) / 1e3;
     return this._diff;
   };
 
