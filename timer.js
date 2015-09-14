@@ -20,6 +20,7 @@
   function Timer() {
     this._startTime = null;
     this._diff = null;
+    this._lapTime = [];
     this._before = 0;
     this._stats = {
       count: 0,
@@ -73,7 +74,7 @@
    */
   function NodeTimer(option) {
     option = option || {};
-    this.MAX_LAP_LENGTH =option.MAX_LAP_LENGTH || this.MAX_LAP_LENGTH;
+    this.MAX_LAP_LENGTH = option.MAX_LAP_LENGTH || this.MAX_LAP_LENGTH;
   }
   extend(Timer, NodeTimer);
 
