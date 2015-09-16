@@ -3,5 +3,9 @@
   "version": "0.1.0",
   "description": "",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:suguru03/neo-timer.git"
+  }
 }
