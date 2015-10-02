@@ -1,6 +1,6 @@
 'use strict';
 
-var Timer = require('../');
+var Timer = require('../').Timer;
 var timer = new Timer({
   MAX_LAP_LENGTH: 100
 });

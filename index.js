@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = require('./timer');
+module.exports = require('./lib');
